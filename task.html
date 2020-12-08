@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head lang="en">
+    <meta charset="utf-8">
+    <title>Drag & Drop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="angular-drag-and-drop.js"></script>
+    <script src="app.js"></script>
+    <style>
+      .thumbnail { 
+        height: 500px !important;
+        padding: 15px;
+      }
+      .container {
+        width: 90%;
+        padding: 20px;
+
+      }
+      .well{
+        width: 32% !important;
+        margin-right: 10px !important;
+        padding: 20px;
+      }
+      input[type="number"]{
+        height: auto;
+      }
+      .nav {
+        margin-bottom: 0px !important;
+        
+      }
+      .navbar-collapse{
+        background-color: #fff !important;
+        box-shadow: 0 4px 15px #eceef5, 0 0 25px rgba(0, 0, 0, 0.1);
+        border-bottom: none;
+      }
+      body{
+        background-color: #eef3fc;
+      }
+
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-collapse collapse" role="navigation">
+      <ul class="navbar-nav nav">
+        <li><a href=""><img class="default_logo lazy loaded" src="https://www.6thenergy.com/wp-content/uploads/2019/12/6thenergy-logo.png" 
+        data-src="https://www.6thenergy.com/wp-content/uploads/2019/12/6thenergy-logo.png" alt="logo" style="height:40px;"></a></li> 
+      </ul>
+      </nav>
+    <div class="container" ng-controller="myCtrl">
+      <h2>Angularjs Drag and Drop</h2>
+      <div class="row">
+        <div class="col-sm-4">
+            <input type="number" class="form-control" ng-model="addGrid" placeholder="Please enter the count">
+        </div>
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-primary" ng-click="addItem(addGrid)">Add Grid</button>
+        </div>    
+      </div>  
+      <div class="row">
+        <div class="col-sm-4">     
+            <div class="thumbnail"
+            data-drop="true" 
+            ng-model='list1'
+            data-jqyoui-options="optionsList1"
+            jqyoui-droppable="{multiple:true, onDrop: 'dropaction($event)'}">
+                <div class="alert alert-info btn-draggable"
+                  ng-repeat="item in list1"
+                  ng-show="item.title" data-drag="{{item.drag}}"
+                  data-jqyoui-options="{revert: 'invalid', revert: revertCard}"
+                  ng-model="list1" jqyoui-draggable="{index: {{$index}},animate:true}">{{item.title}}   
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class='thumbnail'>
+               <div class="col-sm-4 well"
+               ng-repeat = "grid in grids"
+                data-drop="true"
+                ng-model="grid.list"
+                jqyoui-droppable="{multiple:true, onDrop: 'dropaction($event)'}" >
+                <div class=" alert alert-success btn-draggable" ng-repeat="item in grid.list" 
+                ng-show="grid.list" 
+                data-drag="{{item.drag}}"
+                data-jqyoui-options="{revert: 'invalid'}"
+                ng-model="grid.list"
+                jqyoui-draggable="{index: {{$index}},animate:true}">
+                  {{item.title}}
+                </div> 
+               </div>
+            </div>
+        </div>
+      </div>   
+    </div><!--one-->
+  </body>
+</html>
